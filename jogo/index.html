@@ -16,14 +16,33 @@
 		pincel.fillStyle = 'grey';
 		pincel.fillRect(0, 0, 600, 400);
 
+		var cores = ['blue', 'red', 'green']
+		var indiceCorAtual = 0; //começa com blue
+		var raio = 10;
+
 		function desenhaCirculo(evento){
 
 			var x = evento.pageX - tela.offsetLeft;
 			var y = evento.pageY - tela.offsetTop;
+			
 
-			pincel.fillStyle="blue";
+			// verifica se a tecla shift está sendo precionada, caso sim, adiciona 20 a variável raio e desenha
+			// um bolinha maior
+			if (evento.shiftKey && evento.altKey) {
+
+            	alert('Só aperte uma tecla por vez, por favor!');
+
+        	} else if(evento.shiftKey && raio + 10 <= 40) {
+            	raio = raio + 10;
+
+        	} else if(evento.altKey && raio - 5 >= 10) {
+            	raio = raio - 5;
+
+        	}
+        	
+			pincel.fillStyle= cores[indiceCorAtual]; // o array vai exibir de acordo com o contador variavel indiceCorAtual
 			pincel.beginPath();
-			pincel.arc(x, y, 10, 0, 2 * 3.14);
+			pincel.arc(x, y, raio, 0, 2 * 3.14);
 			pincel.fill(); 
 
 			console.log("posição do clique: " + x + ", " + y);
@@ -31,6 +50,17 @@
 		}
 
 		tela.onclick = desenhaCirculo;
+
+		function mudarCor(){
+			indiceCorAtual++;
+			if (indiceCorAtual >= cores.length){
+				indiceCorAtual = 0; // volta para a primera cor
+			}
+			
+			return false; // para não exibir o menu para o usuário
+		}
+
+		tela.oncontextmenu = mudarCor;
 	</script>
 </body>
 </html>
