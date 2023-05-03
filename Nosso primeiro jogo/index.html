@@ -4,10 +4,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Nosso Primeiro Jogo</title>
+    <style>
+        p{
+            padding: 20px;
+        }
+
+    </style>
 </head>
 <body>
 <canvas width="600" height="400"></canvas>
-
+<p>Acertos: <strong id="conteudo"></strong></p>
 
 <script>
 
@@ -16,6 +22,7 @@
     var xAleatorio;
     var yAleatorio;
     var raio = 10;
+    var ponto = 0;
 
     
 
@@ -57,6 +64,7 @@
     }
     setInterval(atualizaTela, 3000);
 
+    
     function dispara(evento) {
 
         var x = evento.pageX - tela.offsetLeft;
@@ -69,13 +77,17 @@
 
     
             alert('Acertou!');
-
+            ponto++;
+            document.getElementById("conteudo").innerHTML = ponto; //imprimir quantidade de acertos.
         }
 
 
     }
 
 tela.onclick = dispara;
+
+
+
 
 
 
